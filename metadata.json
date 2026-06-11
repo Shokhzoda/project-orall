@@ -1,0 +1,6 @@
+{
+  "name": "FashionHub Cloud ERP-CRM-WMS System",
+  "description": "Enterprise-level cloud ERP, CRM, and Warehouse Management System designed for clothing wholesalers with intelligent dashboard analytics, customer lifecycle management, robust inventory auditing, order processing, employee rosters, and real-time financial tracking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

@@ -1,0 +1,41 @@
+services:
+  # Full-stack FashionHub Node.js Application
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: fashionhub-app
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - JWT_SECRET=your_super_secret_jwt_token_key_here
+      # If migrating code to mysql in future, these would be activated
+      - DB_HOST=db
+      - DB_USER=fashion_admin
+      - DB_PASSWORD=fashion_secure_pass
+      - DB_NAME=fashionhub_db
+    depends_on:
+      - db
+    restart: unless-stopped
+
+  # MySQL Database Instance
+  db:
+    image: mysql:8.0
+    container_name: fashionhub-db
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=fashionhub_db
+      - MYSQL_USER=fashion_admin
+      - MYSQL_PASSWORD=fashion_secure_pass
+      - MYSQL_ROOT_PASSWORD=mysql_secure_root_password_here
+    volumes:
+      # Mount schema.sql for automatic database & table structures seeding on first startup
+      - ./schema.sql:/docker-entrypoint-initdb.d/schema.sql
+      - mysql-data:/var/lib/mysql
+    restart: unless-stopped
+
+volumes:
+  mysql-data:
